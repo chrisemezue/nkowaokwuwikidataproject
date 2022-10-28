@@ -17,6 +17,27 @@ request_url = base_url + "/words?keyword=a&range=%5B1%2C%203%5D&examples=true"
 # nkowaOkwuUrl = "https://nkowaokwu.com/word?word={}"
 # fullWorkAvailable = 'https://nkowaokwu.com/word?word={}'
 
+lexemeWordClasses = {
+    "ADJ": "Q34698",
+    "ADV": "Q380057",
+    "AV": "Q24905",
+    "MV": "",
+    "PV": "",
+    "CJN": "Q36484",
+    "DEM": "",
+    "NM": "",
+    "NNC": "Q1084",
+    "NNP": "",
+    "CD": "",
+    "PREP": "Q4833830",
+    "PRN": "Q36224",
+    "FW": "",
+    "QTF": "",
+    "WH": "",
+    "INTJ": "Q83034",
+
+}
+
 response = requests.get(request_url, headers=headers)
 my_response = response.json()
 # my_response = ""
@@ -60,7 +81,26 @@ AddBulkIgboNounWordsToWikidata(my_response)
 
 
 
-
+# ADJ - Adjective
+# ADV - Adverb
+# AV - Active verb
+# MV - Medial verb
+# PV - Passive verb
+# CJN - Conjunction
+# DEM - Demonstrative
+# NM - Name
+# NNC - Noun
+# NNP - Proper noun
+# CD - Number
+# PREP - Preposition
+# PRN - Pronoun
+# FW - Foreign word
+# QTF - Quantifier
+# WH - Interrogative
+# INTJ - Interjection
+# ISUF - Inflectional suffix
+# ESUF - Extensional suffix
+# SYM - Punctuations
 
 ##Function to create and submit lexeme##
 #igbo languge categories 
@@ -73,35 +113,6 @@ AddBulkIgboNounWordsToWikidata(my_response)
 # 6. preposition (Q4833830) Mbuụzọ n'Igbo
 # 7. conjunction (Q36484)  njikọ n'Igbo
 # 8. interjection (Q83034) ntinye aka n'Igbo
-
-# tfsl.Statement can take a "references" keyword argument with a list of references: 
-# tfsl.Statement("P1343", tfsl.ItemValue("Q464886"), references=[tfsl.Reference(tfsl.Claim("P1343", "Q464886"))])
-
-
-# import urllib.parse
-# ​
-# ​
-# ​
-# nkowaOkwuURlBase= 'https://nkowaokwu.com/word?word={}'
-# ​
-# word = 'zụ òkwè'
-# safe_word = urllib.parse.quote_plus(word)
-# ​
-# urlForUse = nkowaOkwuURlBase.format(safe_word)
-# # https://nkowaokwu.com/word?word=zụ òkwè
-# ​
-# print(urlForUse)
-# #https://nkowaokwu.com/word?word=z%E1%BB%A5+o%CC%80kwe%CC%80
-# ​
-# LEXICAL_MAPPING = {'NNC':'Q1345','ADV':'Q1245','VERB':'Q596789','PRN':'Q194586'}
-# ​
-# for item in response:
-#     # get the lexical category for item
-    
-#     lexicalCategory = item['WordClass'] #PRN,ADV
-#     #10 lines of code...
-# ​
-#     qIdForItem = LEXICAL_MAPPING[lexicalCategory]
 
 
 
