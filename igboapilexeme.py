@@ -4,18 +4,13 @@ import json
 import urllib.parse
 
 
-#fetching data from igbo api
 #request_url = "https://igboapi.com/api/v1/words?keyword=a&range=%5B1%2C%2025%5D" //for 1-25 pages
 #request_url = "https://igboapi.com/api/v1/words?keyword=z&range=%5B1%2C%2025%5D&examples=true" //for 1-25 pages and examples
-
-#testingstate https://igboapi.com/api/v1/words?keyword=a&range=%5B1%2C%203%5D&examples=true
 
 api_key_token = "aaa1b71a-6c34-4fab-b024-059e3ed23739"
 headers = { 'X-API-Key' : api_key_token}
 base_url = "https://igboapi.com/api/v1/"
 request_url = base_url + "/words?keyword=a&range=%5B1%2C%203%5D&examples=true"
-# nkowaOkwuUrl = "https://nkowaokwu.com/word?word={}"
-# fullWorkAvailable = 'https://nkowaokwu.com/word?word={}'
 
 lexemeWordClasses = {
     "ADJ": "Q34698",
@@ -39,8 +34,8 @@ lexemeWordClasses = {
 }
 
 response = requests.get(request_url, headers=headers)
-my_response = response.json()
-# my_response = ""
+# my_response = response.json()
+my_response = ""
 # print("my_response", len( my_response))
 
 def AddBulkIgboNounWordsToWikidata(ApiResponse):
@@ -78,6 +73,8 @@ def AddBulkIgboNounWordsToWikidata(ApiResponse):
         #     print('no match')
 
 AddBulkIgboNounWordsToWikidata(my_response)
+
+print("lexemeWordClasses", lexemeWordClasses["ADJ"])
 
 
 
