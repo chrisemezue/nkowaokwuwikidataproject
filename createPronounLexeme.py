@@ -14,6 +14,25 @@ base_url = "https://igboapi.com/api/v1/"
 # request_url = base_url + "/words?keyword=z&range=%5B1%2C%2025%5D&examples=true"
 request_url = base_url + "/words?keyword=a&range=%5B1%2C%2025%5D&examples=true"
 
+lexemeCategoriesList = ['ADJ', 'ADV', 'AV', 'MV', 'PV', 'CJN', 'DEM', 'NM', 'NNC', 'NNP', 'PREP', 'PRN', 'WH', 'INTJ']
+
+lexemeWordClassList = [
+    {"ADJ": "Q34698"},
+    {"ADV": "Q380057"},
+    {"AV": "Q24905"},
+    {"MV": "Q24905"},
+    {"PV": "Q54557461"},
+    {"CJN": "Q36484"},
+    {"DEM": "Q282301"},
+    {"NM": "Q1084"},
+    {"NNC": "Q1084"},
+    {"NNP": "Q147276"},
+    {"PREP": "Q4833830"},
+    {"PRN": "Q36224"},
+    {"WH": "Q12021746"},
+    {"INTJ": "Q83034"},
+]
+
 lexemeWordClasses = {
     "ADJ": "Q34698",
     "ADV": "Q380057",
@@ -37,15 +56,15 @@ my_response = response.json()
 # print("my_response", len( my_response))
 
 def AddBulkIgboPronounWordsToWikidata(ApiResponse):
-    # print("ApiResponse", len(ApiResponse))
+    print(len(ApiResponse))
     my_username = 'TemTechie'
     my_password = '2580Ndutem144$$'
     current_session = tfsl.WikibaseSession(my_username, my_password)
     fullWorkAvailable = 'https://nkowaokwu.com/word?word={}'
     referenceUrlForOfficialWebsite = "https://nkowaokwu.com/lacuna"
     for item in ApiResponse:
-        if 'PRN' in item['wordClass']:
-            # print('this is a AV item', item['wordClass'], item['word'], item['definitions'][0])
+        if 'ADJ' or 'ADV' or 'AV' or 'MV' or 'PV' or 'CJN' or 'DEM' or 'NM'or 'NNC'or 'NNP'or 'PREP' or 'PRN' or 'WH' or 'INTJ' in item['wordClass']:
+            # print('This is a ', item['wordClass'], item['word'], item['definitions'][0])
             usageExample = item['examples'][0]
             usageExampleIgbo = usageExample['igbo']
             usageExampleEnglish = usageExample['english']
@@ -55,9 +74,11 @@ def AddBulkIgboPronounWordsToWikidata(ApiResponse):
             response2 = requests.get('https://lexeme-forms.toolforge.org/api/v1/duplicates/www/ig/' + item['word'], headers=headerSet)
             if response2.status_code == 200:
                 duplicateResponseData = response2.json()
-                print("This word is a duplicate lexeme = ", duplicateResponseData[0]['label'])
+                pass
+                # print("This word is a duplicate lexeme = ", duplicateResponseData[0]['label'])
             elif response2.status_code == 204:
-                print("This word is not a duplicate word = ", response2)
+                pass
+                # print("This word is not a duplicate word = ", response2)
                 
                 referenceUrlforFullWorkAvailableAt = fullWorkAvailable.format(parseWord)
                 #
@@ -71,8 +92,9 @@ def AddBulkIgboPronounWordsToWikidata(ApiResponse):
             
                 statementlist = [newstatement, newstatement2]
                 #creating lexeme
-                newlexeme = tfsl.Lexeme(item['word'] @ tfsl.langs.ig_, tfsl.langs.ig_, lexemeWordClasses['PRN'], statements = statementlist, senses = senselist)
-                print("newlexeme", newlexeme)
+                for code in lexemeWordClasses.values():
+                    newlexeme = tfsl.Lexeme(item['word'] @ tfsl.langs.ig_, tfsl.langs.ig_, "66666", statements = statementlist, senses = senselist)
+                    print("newlexeme", newlexeme)
                 #submitting lexeme
                 # current_session.push(newlexeme, "new lexeme")
           

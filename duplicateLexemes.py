@@ -1,32 +1,57 @@
+
 import requests
 import json
 import schedule
 import time
+import tfsl
 import urllib.parse
-
-headerSet = {'Accept': 'application/json'}
-
-word = "zọ ọkwagg"
-parseWord = urllib.parse.quote_plus(word)
-
-api_key_token = "aaa1b71a-6c34-4fab-b024-059e3ed23739"
-headers = { 'X-API-Key' : api_key_token}
-base_url = "https://igboapi.com/api/v1/"
-request_url = base_url + "/words?keyword=a&range=%5B1%2C%2025%5D&examples=true"
-
-response = requests.get(request_url, headers=headers)
-
-duplicateResult = response.json()
+# referenceUrlForOfficialWebsiteP856 = "https://nkowaokwu.com/lacuna"
 
 
+def filterNonDuplicateLexeme(word, usageExampleIgbo, newsense_, parseWord):
+    my_username = 'TemTechie'
+    my_password = '2580Ndutem144$$'
+    current_session = tfsl.WikibaseSession(my_username, my_password)
+    fullWorkAvailable = 'https://nkowaokwu.com/word?word={}'
+    referenceUrlForReferenceURL = "https://nkowaokwu.com/lacuna"
+    referenceUrlforFullWorkAvailableAt = fullWorkAvailable.format(parseWord)
+                
+    referenceUrlforFullWorkAvailableAt = fullWorkAvailable.format(parseWord)
+    #
+    newsense_gloss = newsense_ @ tfsl.langs.en_
+    newsense = tfsl.LexemeSense([newsense_gloss])
+    senselist = [newsense]
 
-for lexeme in duplicateResult:
-    parseWord = urllib.parse.quote_plus(lexeme['word'])
-    response2 = requests.get('https://lexeme-forms.toolforge.org/api/v1/duplicates/www/ig/' + parseWord, headers=headerSet)
-    if response2.status_code == 200:
-        duplicateResponseData = response2.json()
-        print("duplicate word is = ", duplicateResponseData[0]['label'])
-    elif response2.status_code == 204:
-        print("this is not a duplicate word", response2)
+    #creating statement and references
+    newstatement = tfsl.Statement("P5831", usageExampleIgbo @ tfsl.langs.ig_, references=[tfsl.Reference(tfsl.Claim("P854", referenceUrlForReferenceURL)), tfsl.Reference(tfsl.Claim("P953", referenceUrlforFullWorkAvailableAt))])
+      
+    statementlist = [newstatement]
+    #creating lexeme
+    newlexeme = tfsl.Lexeme(word @ tfsl.langs.ig_, tfsl.langs.ig_, 'Q54557461', statements = statementlist, senses = senselist)
+    print("newlexeme", newlexeme)
+    #submitting lexeme
+    # current_session.push(newlexeme, "new lexeme")
     
 
+
+
+
+lexemeWordClasses = {
+    "ADJ": "Q34698",
+    "ADV": "Q380057",
+    "AV": "Q24905",
+    "MV": "Q24905",
+    "PV": "Q54557461",
+    "CJN": "Q36484",
+    "DEM": "Q282301",
+    "NM": "Q1084",
+    "NNC": "Q1084",
+    "NNP": "Q147276",
+    "PREP": "Q4833830",
+    "PRN": "Q36224",
+    "WH": "Q12021746",
+    "INTJ": "Q83034",
+}
+
+for code in lexemeWordClasses.values():
+    print("code", code)
