@@ -7,25 +7,8 @@ import tfsl
 import urllib.parse
 # referenceUrlForOfficialWebsiteP856 = "https://nkowaokwu.com/lacuna"
 
-lexemeWordClasses = {
-    "ADJ": "Q34698",
-    "ADV": "Q380057",
-    "AV": "Q24905",
-    "MV": "Q24905",
-    "PV": "Q54557461",
-    "CJN": "Q36484",
-    "DEM": "Q282301",
-    "NM": "Q1084",
-    "NNC": "Q1084",
-    "NNP": "Q147276",
-    "PREP": "Q4833830",
-    "PRN": "Q36224",
-    "WH": "Q12021746",
-    "INTJ": "Q83034",
-}
 
-
-def filterNonDuplicateLexeme(word, usageExampleIgbo, newsense_, parseWord):
+def filterAllNonDuplicateLexeme(word, usageExampleIgbo, newsense_, parseWord, lexemeWordClasses, code):
     my_username = 'TemTechie'
     my_password = '2580Ndutem144$$'
     current_session = tfsl.WikibaseSession(my_username, my_password)
@@ -44,12 +27,9 @@ def filterNonDuplicateLexeme(word, usageExampleIgbo, newsense_, parseWord):
       
     statementlist = [newstatement]
     #creating lexeme
-    newlexeme = tfsl.Lexeme(word @ tfsl.langs.ig_, tfsl.langs.ig_, 'Q54557461', statements = statementlist, senses = senselist)
-    print("newlexeme", newlexeme)
+
+    newlexeme = tfsl.Lexeme(word @ tfsl.langs.ig_, tfsl.langs.ig_, lexemeWordClasses[code], statements = statementlist, senses = senselist)
+        # print("newlexeme", newlexeme)
     #submitting lexeme
     # current_session.push(newlexeme, "new lexeme")
     
-
-
-for code in lexemeWordClasses.values():
-    print("code", code)

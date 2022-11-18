@@ -63,7 +63,7 @@ def AddBulkIgboPronounWordsToWikidata(ApiResponse):
     fullWorkAvailable = 'https://nkowaokwu.com/word?word={}'
     referenceUrlForOfficialWebsite = "https://nkowaokwu.com/lacuna"
     for item in ApiResponse:
-        if 'ADJ' or 'ADV' or 'AV' or 'MV' or 'PV' or 'CJN' or 'DEM' or 'NM'or 'NNC'or 'NNP'or 'PREP' or 'PRN' or 'WH' or 'INTJ' in item['wordClass']:
+        if 'ADJ' or 'ADV' or 'AV' or 'MV' or 'PV' or 'CJN' or 'DEM' or 'NM'or 'NNC'or 'NNP' or 'PREP' or 'PRN' or 'WH' or 'INTJ' in item['wordClass']:
             # print('This is a ', item['wordClass'], item['word'], item['definitions'][0])
             usageExample = item['examples'][0]
             usageExampleIgbo = usageExample['igbo']
@@ -92,9 +92,8 @@ def AddBulkIgboPronounWordsToWikidata(ApiResponse):
             
                 statementlist = [newstatement, newstatement2]
                 #creating lexeme
-                for code in lexemeWordClasses.values():
-                    newlexeme = tfsl.Lexeme(item['word'] @ tfsl.langs.ig_, tfsl.langs.ig_, "66666", statements = statementlist, senses = senselist)
-                    print("newlexeme", newlexeme)
+                newlexeme = tfsl.Lexeme(item['word'] @ tfsl.langs.ig_, tfsl.langs.ig_, "Q36224", statements = statementlist, senses = senselist)
+                print("newlexeme", newlexeme)
                 #submitting lexeme
                 # current_session.push(newlexeme, "new lexeme")
           
