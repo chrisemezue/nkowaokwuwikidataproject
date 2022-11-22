@@ -11,4 +11,4 @@ def handleLexemesSubmitToWikidata(newlexeme):
     current_session = tfsl.WikibaseSession(my_username, my_password)
     print("newlexeme", newlexeme)
     #submitting lexeme
-    current_session.push(newlexeme, "new lexeme")
+    # current_session.push(newlexeme, "new lexeme")
