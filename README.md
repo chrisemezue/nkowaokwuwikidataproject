@@ -1,39 +1,22 @@
-# tfsl
 
-tfsl (an abbreviation of "twofivesixlex") is a Python-based framework for manipulating entities on Wikibases, such as lexemes and their forms and senses.
-Think of it as Pywikibot but with objects in a Wikibase coming first.
+# ![igboAPI](https://user-images.githubusercontent.com/36100251/203620969-25db849c-3060-49a1-a43e-2c56afee68ca.svg)
 
-Support for manipulating items, as well as claim types other than monolingual text values, is coming soon.
+The aim of this project is to enhance the current process of importing and adding new lexemes from [igboAPI](https://igboapi.com/) into Wikidata. 
+This entailed tweaking the [`tfsl`](https://phabricator.wikimedia.org/source/tool-twofivesixlex/) package to import the Igbo API dataset to the Wikidata Lexicographical data project.
 
-## Setup
 
-Clone this repository. (Depending on which Git host you're reading this from, the URL might vary.)
 
-Now make sure this ends up in your PYTHONPATH. The simplest way to do this below is for a Unix system, where the path must be substituted accordingly:
+## Background
+Igbo is one of the three major languages in Nigeria, with approximately 30 million Igbo people around the globe1. Despite its enormous population, Igbo culture is experiencing social violence against its language in many Nigerian homes, schools, churches, governmental organizations, and even neighboring dialectal regions. Igbo has been relegated to a second-class language when compared to English which is seen by many Nigerians as the language of prosperity and opportunity. This social violence has become so consistent and aggressive that UNESCO has predicted Igbo could become extinct by 2025.
 
-```
-export PYTHONPATH=$PYTHONPATH:/path/to/tfsl
-```
+In the past decade, we have witnessed incredible technological advancements surrounding language technology and natural language processing. Language technology has been applied to solve many real-world problems that revolve around language. However, many African languages, Igbo especially, have not been able to take advantage of these advancements due to the lack of fundamental lexical resources. For instance, there is no widely accepted, easily accessible, online, standardized Igbo dictionary. The greatest challenge in creating a robust Igbo dictionary is properly cataloging, labeling, organizing, and linking the  known Igboid dialectal varieties. So far, all existing attempts at creating an Igbo dictionary mainly focus on Standard Igbo or one other dialect and therefore are only widely accepted by speakers of that particular dialect. Researchers1,2 have shown that for an Igbo dictionary to be widely accepted by the whole Igbo community it needs to be able to accommodate Igbo dialects besides Standard Igbo. This will make the dictionary more reliable and robust because most Igbo content (social media, news articles, etc.) combine a range of dialects.
 
-Now install its dependencies, again substituting the path accordingly:
+## Solution 2: Data sharing and Wikidata syncing
+The activities of this work package includes:
+- Periodically dumping all Igbo API word data: Snapshots of the Igbo API dataset will be placed on the Igbo API website twice a year in the formats of JSON or CSV.
+- Adapting existing Wikidata data importing script(s): We will explore automated approaches (either by creating a new script or adapting an existing one) to import the Igbo API dataset to the Wikidata Lexicographical data project. Wikidata aims to provide metadata for words (or what they call items) in many languages thereby creating a knowledge base across languages.
+- Deliverable: Enhancing the current process of importing and adding new lexemes into Wikidata via a publicly accessible API. As a proof of concept, 500 Igbo words will be imported into Wikidata Lexicographical data
 
-```
-pip install -r /path/to/tfsl/requirements.txt
-```
 
-Now rename 'config.ini.example' to 'config.ini' and specify
-1) where retrieved lexemes and items should be stored ('CachePath') and
-2) how long (in seconds) these should be stored before regeneration ('TimeToLive').
-
-## Use
-
-Most facets of use are exemplified in the unit tests. (Unless otherwise stated in a comment in a unit test file, any functionality which is not exhibited in a unit test should be assumed to be unstable.)
-
-Perhaps when this is better developed a more thorough tutorial on its use will come.
-
-## Licensing and external credits
-
-Except where otherwise specified below, all code in this repository is under Apache 2.0.
-
-- The contents of "auth.py" were modified from Michael Schoenitzer's [LexData](https://github.com/Nudin/LexData/) tool, under the X11 license placed in that repository.
-
+# How to Run
+**TODO:** Detail the steps needed to reproduce this program - from installation down to which python file to run.
